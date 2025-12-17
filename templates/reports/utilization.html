@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Utilization Report - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Resource Utilization Report</h2>
+
+    <form method="POST" action="{{ url_for('utilization_report') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.start_date.label }}
+            {{ form.start_date(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.end_date.label }}
+            {{ form.end_date(class="form-control") }}
+        </div>
+
+        <button type="submit" class="btn">Generate Report</button>
+    </form>
+</div>
+
+{% if report_data %}
+<div class="card">
+    <h2>Report Results</h2>
+
+    <table class="report-table">
+        <thead>
+            <tr>
+                <th>Resource</th>
+                <th>Type</th>
+                <th>Total Hours</th>
+                <th>Bookings</th>
+                <th>Upcoming Events</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in report_data %}
+            <tr>
+                <td><strong>{{ item.resource.resource_name }}</strong></td>
+                <td>{{ item.resource.resource_type|title }}</td>
+                <td>{{ item.total_hours }} hrs</td>
+                <td>{{ item.allocation_count }}</td>
+                <td>
+                    {% if item.upcoming_bookings %}
+                    <ul style="margin: 0; padding-left: 20px;">
+                        {% for event in item.upcoming_bookings %}
+                        <li>{{ event.title }} ({{ event.start_time.strftime('%m/%d %H:%M') }})</li>
+                        {% endfor %}
+                    </ul>
+                    {% else %}
+                    None
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endif %}
+{% endblock %}

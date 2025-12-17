@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Edit Event - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Edit Event</h2>
+
+    {% if conflicts %}
+    <div class="alert alert-error">
+        <strong>Resource Conflicts Detected:</strong>
+        {% for conflict in conflicts %}
+        <div>{{ conflict.resource.resource_name }} - already booked for {{ conflict.event.title }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <form method="POST" action="{{ url_for('edit_event', event_id=event.event_id) }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.title.label }}
+            {{ form.title(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.start_time.label }}
+            {{ form.start_time(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.end_time.label }}
+            {{ form.end_time(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.description.label }}
+            {{ form.description(class="form-control") }}
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn">Update Event</button>
+            <a href="{{ url_for('list_events') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

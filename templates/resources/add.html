@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}Add Resource - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Add New Resource</h2>
+
+    <form method="POST" action="{{ url_for('add_resource') }}">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.resource_name.label }}
+            {{ form.resource_name(class="form-control") }}
+        </div>
+
+        <div class="form-group">
+            {{ form.resource_type.label }}
+            {{ form.resource_type(class="form-control") }}
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="btn">Create Resource</button>
+            <a href="{{ url_for('list_resources') }}" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

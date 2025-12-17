@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Events - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Events</h2>
+    <a href="{{ url_for('add_event') }}" class="btn">Add New Event</a>
+
+    {% if events %}
+    <table>
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Start Time</th>
+                <th>End Time</th>
+                <th>Resources</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event in events %}
+            <tr>
+                <td><strong>{{ event.title }}</strong></td>
+                <td>{{ event.start_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ event.end_time.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>
+                    {% if event.allocations %}
+                    {{ event.allocations|length }} allocated
+                    {% else %}
+                    None
+                    {% endif %}
+                </td>
+                <td class="actions">
+                    <a href="{{ url_for('edit_event', event_id=event.event_id) }}" class="btn btn-small">Edit</a>
+                    <a href="{{ url_for('delete_event', event_id=event.event_id) }}" class="btn btn-small btn-danger"
+                        onclick="return confirm('Delete this event?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-data">No events found. Create your first event!</p>
+    {% endif %}
+</div>
+{% endblock %}

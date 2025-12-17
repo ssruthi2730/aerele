@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block title %}Resources - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Resources</h2>
+    <a href="{{ url_for('add_resource') }}" class="btn">Add New Resource</a>
+
+    {% if resources %}
+    <table>
+        <thead>
+            <tr>
+                <th>Resource Name</th>
+                <th>Type</th>
+                <th>Allocations</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for resource in resources %}
+            <tr>
+                <td><strong>{{ resource.resource_name }}</strong></td>
+                <td>{{ resource.resource_type|title }}</td>
+                <td>{{ resource.allocations|length }}</td>
+                <td class="actions">
+                    <a href="{{ url_for('edit_resource', resource_id=resource.resource_id) }}"
+                        class="btn btn-small">Edit</a>
+                    <a href="{{ url_for('delete_resource', resource_id=resource.resource_id) }}"
+                        class="btn btn-small btn-danger" onclick="return confirm('Delete this resource?')">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="no-data">No resources found. Create your first resource!</p>
+    {% endif %}
+</div>
+{% endblock %}

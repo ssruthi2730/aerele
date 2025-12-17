@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard - Event Scheduler{% endblock %}
+
+{% block content %}
+<div class="stats">
+    <div class="stat-card">
+        <h3>{{ event_count }}</h3>
+        <p>Total Events</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ resource_count }}</h3>
+        <p>Total Resources</p>
+    </div>
+    <div class="stat-card">
+        <h3>{{ allocation_count }}</h3>
+        <p>Total Allocations</p>
+    </div>
+</div>
+
+<div class="card">
+    <h2>Upcoming Events</h2>
+    {% if upcoming_events %}
+    <ul class="event-list">
+        {% for event in upcoming_events %}
+        <li class="event-item">
+            <h4>{{ event.title }}</h4>
+            <div class="time">
+                {{ event.start_time.strftime('%Y-%m-%d %H:%M') }} -
+                {{ event.end_time.strftime('%Y-%m-%d %H:%M') }}
+            </div>
+            {% if event.description %}
+            <p>{{ event.description }}</p>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <p class="no-data">No upcoming events scheduled</p>
+    {% endif %}
+</div>
+
+<div class="card">
+    <h2>Quick Actions</h2>
+    <div class="actions">
+        <a href="{{ url_for('add_event') }}" class="btn">Add Event</a>
+        <a href="{{ url_for('add_resource') }}" class="btn">Add Resource</a>
+        <a href="{{ url_for('manage_allocations') }}" class="btn">Manage Allocations</a>
+    </div>
+</div>
+{% endblock %}
