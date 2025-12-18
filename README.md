@@ -192,29 +192,27 @@ The system validates resource allocations using sophisticated overlap detection:
 ## Screenshots
 
 ### Dashboard
-![Dashboard showing statistics and upcoming events]
 
 ### Events List
-![List of all events with edit/delete actions]
+
 
 ### Add Event
-![Form to create new event]
+
 
 ### Resources List
-![List of all resources grouped by type]
 
 ### Allocations
-![Resource allocation interface with conflict detection]
+
 
 ### Conflict Detection
-![Detailed conflict information display]
+
 
 ### Utilization Report
-![Resource usage report with hours and bookings]
+
 
 ## Video Demonstration
 
-[Link to screen recording demonstrating all features]
+(https://drive.google.com/file/d/13uXZGl9CTh2KFTfMC4C36g-IkiMJ2Ptu/view?usp=sharing)
 
 ## Code Quality
 
@@ -236,10 +234,7 @@ The system validates resource allocations using sophisticated overlap detection:
 - Recurring events support
 - Mobile app integration
 
-## Contact
 
-For questions or issues, contact: hr@aerele.in
 
----
-
-**Developed as part of Aerele Flask Hiring Assessment**
+#author
+**sruthilakshmi**
